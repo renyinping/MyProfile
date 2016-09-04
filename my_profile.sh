@@ -83,7 +83,11 @@ function my_android_sdk
 	export PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
 	
 	my_unpack_tgz ${UNPACK_DIR} ${DL_FILE} ${DL_URL};
-		
+}
+
+# 更新android-sdk
+function my_android_sdk_update
+{
 	echo "y" | android update sdk --filter tools,platform-tools,build-tools-24.0.1,android-24,extra-google-m2repository --no-ui -a;
 	echo "y" | android update sdk --filter extra-android-m2repository --no-ui -a;
 }
