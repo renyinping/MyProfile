@@ -96,6 +96,7 @@ function my_android_ndk
 	DL_FILE=${DL_URL##*/}
 	UNPACK_DIR=android-ndk-${VERSION}
 	export ANDROID_NDK_HOME=${PWD}/${UNPACK_DIR}
+	export PATH=${ANDROID_NDK_HOME}:${PATH}
 	
 	my_unpack_zip ${UNPACK_DIR} ${DL_FILE} ${DL_URL};
 }
