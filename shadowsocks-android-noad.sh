@@ -1,12 +1,12 @@
 # /bin/bash
 
-. myprofile.sh
-myjdk8;
-mygradle;
-myandroid_sdk;
-myandroid_ndk;
-mygolang;
-mysbt;
+. my_profile.sh
+my_jdk8;
+my_gradle;
+my_android_sdk;
+my_android_ndk;
+my_golang;
+my_sbt;
 
 # 定义shadowsocks版本
 VERSION=v2.10.8
