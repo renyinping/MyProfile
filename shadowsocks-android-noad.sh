@@ -8,6 +8,9 @@ my_android_ndk;
 my_golang;
 my_sbt;
 
+export NDK_VERSION=r12b
+export NDK_CCACHE=ccache
+
 # 定义shadowsocks版本
 VERSION=v2.10.8
 
