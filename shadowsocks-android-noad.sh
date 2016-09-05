@@ -8,17 +8,14 @@ my_android_ndk;
 my_golang;
 my_sbt;
 
-export NDK_VERSION=r12b
-export NDK_CCACHE=ccache
-
 # 定义shadowsocks版本
 VERSION=v2.10.8
+NDK_CCACHE=ccache
 
 # shadowsocks-android
-git clone https://github.com/shadowsocks/shadowsocks-android.git \
-	&& cd shadowsocks-android \
-	&& git checkout ${VERSION}
-
+mkdir -p ${HOME}/android
+pushd ${HOME}/android
+git clone https://github.com/shadowsocks/shadowsocks-android.git && cd shadowsocks-android
 
 # NoAd
 # 方法一：必须先删除·com.google.android.gms.ads.AdActivity·上面的一行
@@ -33,3 +30,4 @@ sed -i -e :a -e '$!N;s/.*\n\(.*com.google.android.gms.ads.AdActivity\)/\1/;ta' -
 git submodule update --init
 sbt native-build clean android:package-release
 
+popd
