@@ -14,8 +14,8 @@ function my_unpack_zip
 {
 	DL_URL=$2
 	UNPACK_DIR=$1
-	
 	DL_FILE=${DL_URL##*/};
+	
 	mkdir -p ${UNPACK_DIR%/*};
 	pushd ${UNPACK_DIR%/*};
 	if [ ! -d "${UNPACK_DIR}" ]; then
@@ -34,8 +34,8 @@ function my_unpack_tgz
 {
 	DL_URL=$2
 	UNPACK_DIR=$1
-	
 	DL_FILE=${DL_URL##*/};
+	
 	mkdir -p ${UNPACK_DIR%/*};
 	pushd ${UNPACK_DIR%/*};
 	if [ ! -d "${UNPACK_DIR}" ]; then
@@ -59,13 +59,16 @@ function my_jdk8
 	export JAVA_HOME=${JDK_HOME}
 	export PATH=${JAVA_HOME}/bin:${PATH}
 	
+	mkdir -p ${UNPACK_DIR%/*};
+	pushd ${UNPACK_DIR%/*};
 	if [ ! -d "${UNPACK_DIR}" ]; then
-		if [ ! -f "${PWD}/${DL_FILE}" ]; then
+		if [ ! -f "${DL_FILE}" ]; then
 			wget --header "Cookie: oraclelicense=accept" -c --no-check-certificate ${DL_URL};
 		fi;
 		tar -zxf ${DL_FILE};
 		rm -rf ${DL_FILE};
 	fi;
+	popd;
 }
 
 # 安装gradle
