@@ -1,5 +1,12 @@
 # /bin/bash
 
+# Git 配置
+function my_git_config
+{
+	git config user.email 'yp_ren@hotmail.com'
+	git config user.name  'yinping'
+}
+
 # 安装64位系统兼容32位应用包和开发工具包
 function my_install_x86_64
 {
