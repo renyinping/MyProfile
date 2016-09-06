@@ -5,7 +5,7 @@ function my_install_x86_64
 {
 	sudo apt-get install -y lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6 \
 		build-essential ccache bison flex automake intltool libncurses5-dev \
-		unzip git
+		unzip git bash bash-completion vim
 }
 
 # 解包zip
@@ -128,7 +128,7 @@ function my_golang
 	DL_FILE=${DL_URL##*/}
 	UNPACK_DIR=${HOME}/go/go
 	
-	export GOPATH=${UNPACK_DIR%/*}work
+	export GOPATH=${UNPACK_DIR%/*}/work
 	export GOROOT=${UNPACK_DIR}
 	export GOROOT_BOOTSTRAP=${GOROOT}
 	export PATH=${GOROOT}/bin:${PATH}
