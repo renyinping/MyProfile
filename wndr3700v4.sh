@@ -22,7 +22,7 @@ function my_openwrt_img_wndr3700v4_15051
 	sed -i "s/${OLD}/${NEW}/g" ${EDIT_FILE};
 	
 	# 编译选项
-	LUCI='luci luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn'
+	LUCI='luci luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn ipset luci-app-upnp luci-i18n-upnp-zh-cn luci-app-wol luci-i18n-wol-zh-cn'
 	USB='kmod-usb-storage kmod-usb-storage-extras kmod-scsi-core block-mount usbutils blkid fdisk e2fsprogs hdparm kmod-fs-ext4'
 	SMB='luci-app-samba luci-i18n-samba-zh-cn'
 	FAT32='kmod-fs-vfat kmod-nls-cp437 kmod-nls-iso8859-1'
