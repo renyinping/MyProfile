@@ -1,5 +1,7 @@
 # /bin/bash
 
+ARCHIVER_LIST=archiver_list.txt
+
 # 归档
 function my_archiver
 {
@@ -8,8 +10,8 @@ function my_archiver
 		return 1;
 	fi;
 	
-	sed -i 's/\\/\//g' config_list.txt;
-	for i in $(cat config_list.txt); do
+	sed -i 's/\\/\//g' ${ARCHIVER_LIST};
+	for i in $(cat ${ARCHIVER_LIST}); do
 		./7z a "${i}.7z" -p${1} -mhe "${i}";
 	done;
 }
@@ -22,8 +24,8 @@ function my_archiver_extract
 		return 1;
 	fi;
 	
-	sed -i 's/\\/\//g' config_list.txt;
-	for i in $(cat config_list.txt); do
+	sed -i 's/\\/\//g' ${ARCHIVER_LIST};
+	for i in $(cat ${ARCHIVER_LIST}); do
 		./7z x ${i}.7z -p${1};
 	done;
 }
