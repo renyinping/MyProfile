@@ -6,7 +6,7 @@ call myproj.bat
 
 call :set_env MYSPACE "%MYSPACE%"
 call :set_env MYDEV "%MYDEV%"
-call :set_env PATH "%MYPROJ%\functions;%MYPROJ%\functions\Quick Start;%MYDEV%\AStyle\bin"
+call :set_env PATH "%MYPROJ%\MyProfile\output\windows\bat;%MYPROJ%\MyProfile\output\windows\QuickStart;%MYDEV%\AStyle\bin"
 pause > nul
 goto :eof
 
