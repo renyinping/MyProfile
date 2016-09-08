@@ -41,7 +41,7 @@ function my_openwrt_img_wndr3700v4_15051
 			;;
 		xxnet)
 			OUTPUT=${OUTPUT}/xxnet
-			cp ${OUTPUT}/*.ipk ${UNPACK_DIR}/packages/;
+			cp ${OUTPUT}/packages/* ${UNPACK_DIR}/packages/;
 			make image PROFILE=WNDR4300 PACKAGES="${LUCI} ${XXNET}";
 			;;
 		*)
