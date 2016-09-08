@@ -28,23 +28,28 @@ function my_openwrt_img_wndr3700v4_15051
 	FAT32='kmod-fs-vfat kmod-nls-cp437 kmod-nls-iso8859-1'
 	NTFS='kmod-fs-ntfs'
 	BT='luci-app-transmission luci-i18n-transmission-zh-cn transmission-web'
-	XXNET='python-base pyopenssl bash git-http ca-certificates'
+	XXNET='bash ca-certificates python-base pyopenssl gevent libevent2 libevent2-core libevent2-extra libevent2-openssl libevent2-pthreads python-greenlet'
 	OUTPUT=output/wndr3700v4/15.05.1
 	case $1 in
-		bt)  
-			make image PROFILE=WNDR4300 PACKAGES="${LUCI} ${USB} ${SMB} ${FAT32} ${NTFS} ${BT}";
+		bt)
 			OUTPUT=${OUTPUT}/bt
+			make image PROFILE=WNDR4300 PACKAGES="${LUCI} ${USB} ${SMB} ${FAT32} ${NTFS} ${BT}";
 			;;
-		usb) 
-			make image PROFILE=WNDR4300 PACKAGES="${LUCI} ${USB} ${SMB} ${FAT32} ${NTFS}";
+		usb)
 			OUTPUT=${OUTPUT}/usb
+			make image PROFILE=WNDR4300 PACKAGES="${LUCI} ${USB} ${SMB} ${FAT32} ${NTFS}";
 			;;
-		*)   
-			make image PROFILE=WNDR4300 PACKAGES="${LUCI}";
+		xxnet)
+			OUTPUT=${OUTPUT}/xxnet
+			cp ${OUTPUT}/*.ipk ${UNPACK_DIR}/packages/;
+			make image PROFILE=WNDR4300 PACKAGES="${LUCI} ${XXNET}";
+			;;
+		*)
 			OUTPUT=${OUTPUT}
+			make image PROFILE=WNDR4300 PACKAGES="${LUCI}";
 			;;
 	esac;
-	
+
 	popd;
 	mkdir -p ${OUTPUT};
 	mv ${UNPACK_DIR}/bin/ar71xx/*-wndr3700v4-* ${OUTPUT}/
@@ -59,12 +64,27 @@ function my_openwrt_sdk_wndr3700v4_15051
 	UNPACK_DIR=${HOME}/wndr3700v4/OpenWrt-SDK-15.05.1-ar71xx-nand_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64
 	
 	my_unpack_tar_bz2 "${UNPACK_DIR}" "${DL_URL}";
+}
+
+# 编译
+function my_openwrt_compile_wndr3700v4_15051
+{
+	UNPACK_DIR=${HOME}/wndr3700v4/OpenWrt-SDK-15.05.1-ar71xx-nand_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64
 	
-	ln -s ${PWD}/src/openwrt/packages/gevent0.13.8/ ${UNPACK_DIR}/package/gevent
-	ln -s ${PWD}/src/openwrt/packages/greenlet/     ${UNPACK_DIR}/package/greenlet
-	ln -s ${PWD}/src/openwrt/packages/libevent2/    ${UNPACK_DIR}/package/libevent
+	ln -s src/openwrt/packages/gevent0.13.8/ ${UNPACK_DIR}/package/gevent
+	ln -s src/openwrt/packages/greenlet/     ${UNPACK_DIR}/package/greenlet
+	ln -s src/openwrt/packages/libevent2/    ${UNPACK_DIR}/package/libevent
 	
 	pushd ${UNPACK_DIR};
-	popd;	
+		./script/feeds update -a
+		./script/feeds install python-base
+		make package/gevent/compile
+		make package/libevent/compile
+	popd;
+	
+	mv ${UNPACK_DIR}/bin/ar71xx/packages/base/gevent_**         output/wndr3700v4/15.05.1/xxnet/
+	mv ${UNPACK_DIR}/bin/ar71xx/packages/base/python-greenlet_* output/wndr3700v4/15.05.1/xxnet/
+	mv ${UNPACK_DIR}/bin/ar71xx/packages/base/libevent2*        output/wndr3700v4/15.05.1/xxnet/
 }
+	
 
