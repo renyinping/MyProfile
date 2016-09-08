@@ -50,3 +50,21 @@ function my_openwrt_img_wndr3700v4_15051
 	mv ${UNPACK_DIR}/bin/ar71xx/*-wndr3700v4-* ${OUTPUT}/
 }
 
+# 安装openwrt-sdk
+function my_openwrt_sdk_wndr3700v4_15051
+{
+	VERSION=15.05.1
+	DL_URL=https://downloads.openwrt.org/chaos_calmer/15.05.1/ar71xx/nand/OpenWrt-SDK-15.05.1-ar71xx-nand_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64.tar.bz2
+	DL_FILE=${DL_URL##*/}
+	UNPACK_DIR=${HOME}/wndr3700v4/OpenWrt-SDK-15.05.1-ar71xx-nand_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64
+	
+	my_unpack_tar_bz2 "${UNPACK_DIR}" "${DL_URL}";
+	
+	ln -s ${PWD}/src/openwrt/packages/gevent0.13.8/ ${UNPACK_DIR}/package/gevent
+	ln -s ${PWD}/src/openwrt/packages/greenlet/     ${UNPACK_DIR}/package/greenlet
+	ln -s ${PWD}/src/openwrt/packages/libevent2/    ${UNPACK_DIR}/package/libevent
+	
+	pushd ${UNPACK_DIR};
+	popd;	
+}
+
