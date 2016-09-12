@@ -22,8 +22,21 @@ mkdir -p xx-net/${LOCAL_DIR%/*}
 mkdir -p xx-net/${NOARCH_DIR%/*}
 mv ${UNPACK_DIR}/code/default/gae_proxy/local         xx-net/${LOCAL_DIR%/*}/
 mv ${UNPACK_DIR}/code/default/python27/1.0/lib/noarch xx-net/${NOARCH_DIR%/*}/
+echo ${VERSION} > xx-net/code/version.txt
 
 rm -rf ${UPD_FILE}
 rm -rf ${VERSION}
 rm -rf ${UNPACK_DIR}
+
+echo '
+# /bin/sh
+
+TOP_DIR=`dirname $(readlink -f $0)`;
+VERSION=`cat ${TOP_DIR}/code/version.txt`;
+echo "Version=${VERSION}";
+
+screen -d -m -S xx-net python ${TOP_DIR}/code/${VERSION}/gae_proxy/local/proxy.pyc;
+screen -ls;
+' > xx-net/start.sh
+chmod a+x xx-net/start.sh
 
